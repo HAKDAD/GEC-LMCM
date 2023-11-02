@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher & Class Records</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<STYle>
+/* Style the <h1> heading with curved edges */
+    h1 {
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 10px; /* Add curved edges */
+    background-color: #007bff; /* Optional background color */
+    color: #fff; /* Text color */
+    padding: 10px; /* Add some padding for spacing */
+}
+
+/* Style the filter and sorting forms with curved edges */
+form {
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 10px; /* Add curved edges */
+    background-color: #f4f4f4; /* Optional background color */
+    padding: 10px; /* Add some padding for spacing */
+}
+
+/* Style the form labels */
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Style the <select> elements with curved edges */
+select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style the <input type="submit"> buttons with curved edges */
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 4px; /* Add curved edges */
+}
+
+/* Style the table with curved edges */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 10px; /* Add curved edges */
+    overflow: hidden; /* Ensure table content is not cut off */
+    background-color: #fff; /* Optional background color */
+}
+
+/* Style the table header */
+table th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+}
+
+/* Style the table rows with curved edges */
+table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* Add curved edges */
+}
+
+/* Add alternating row colors */
+table tr:nth-child(even) {
+    background-color: #f4f4f4;
+}
+
+    
+</STYle>
+
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <h1>Teacher  Records</h1>
+
+    <form method="get">
+        <label for="branch">Filter by Branch:</label>
+        <select name="branch" id="branch">
+            <option value="">All</option>
+            <option value="CSE">CSE</option>
+            <option value="IT">IT</option>
+            <option value="ECE">ECE</option>
+
+            <!-- Add more branch options as needed -->
+        </select>
+        <input type="submit" value="Apply Filter">
+    </form>
+
+    <form method="get">
+        <label for="sort_by">Sort by:</label>
+        <select name="sort_by" id="sort_by">
+            <option value="name">Name</option>
+            <option value="teacher_branch">Branch</option>
+            <option value="gender">gender</option>
+            <option value="designation">designation</option>
+            
+            <!-- Add more sorting options as needed -->
+        </select>
+        <input type="submit" value="Sort">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Branch</th>
+                <th>Designation</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for teacher in teachers %}
+                <tr>
+                    <td>{{ teacher.teacher_id }}</td>
+                    <td>{{ teacher.name }}</td>
+                    <td>{{ teacher.phone_number }}</td>
+                    <td>{{ teacher.teacher_branch }}</td>
+                    <td>{{ teacher.designation }}</td>
+                    <td>{{ teacher.gender }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

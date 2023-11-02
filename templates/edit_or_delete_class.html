@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        h1, h2, h3, p{
+        font-size: 28px;
+        color: #333;
+        text-align: center;
+        margin-top: 20px;
+        border-radius: 10px; /* Add curved edges */
+        background-color: #007bff; /* Optional background color */
+        color: #fff; /* Text color */
+        padding: 10px; /* Add some padding for spacing */
+    }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container mt-5">
+        <h2>Edit or Delete Class</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="teacher">Select Teacher:</label>
+                <select class="form-control" id="teacher" name="teacher_id">
+                    {% for teacher in teachers %}
+                        <option value="{{ teacher.teacher_id }}">{{ teacher.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="class">Select Class:</label>
+                <select class="form-control" id="class" name="class_id">
+                    <!-- Placeholder for class options -->
+                </select>
+            </div>
+            <button type="submit" name="edit" class="btn btn-primary">Edit</button>
+            <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to update the list of classes based on the selected teacher
+        document.getElementById('teacher').addEventListener('change', function () {
+            const teacherId = this.value;
+            const classSelect = document.getElementById('class');
+
+            // Clear the current class options
+            while (classSelect.firstChild) {
+                classSelect.removeChild(classSelect.firstChild);
+            }
+
+            // Fetch and add classes based on the selected teacher
+            fetch(`/get_classes/${teacherId}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.classes.forEach(classData => {
+                        const option = document.createElement('option');
+                        option.value = classData.id;
+                        option.textContent = classData.class_name;
+                        classSelect.appendChild(option);
+                    });
+                });
+        });
+    </script>
+
+<div>
+    {% with messages = get_flashed_messages() %}
+{% if messages %}
+    <ul class="flash-messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endwith %}
+</div>
+
+</body>
+</html>
+

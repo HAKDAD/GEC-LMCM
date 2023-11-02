@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        h1, h2, h3, p{
+        font-size: 28px;
+        color: #333;
+        text-align: center;
+        margin-top: 20px;
+        border-radius: 10px; /* Add curved edges */
+        background-color: #007bff; /* Optional background color */
+        color: #fff; /* Text color */
+        padding: 10px; /* Add some padding for spacing */
+    }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container mt-5">
+        <h2>Edit or Delete Teacher</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="teacher">Select Teacher:</label>
+                <select class="form-control" id="teacher" name="teacher_id">
+                    {% for teacher in teachers %}
+                        <option value="{{ teacher.id }}">{{ teacher.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" name="edit" class="btn btn-primary">Edit</button>
+            <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+    <div>
+        {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    </div>
+    
+</body>
+</html>
+

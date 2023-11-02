@@ -1,0 +1,241 @@
+/* Reset default margin and padding */
+body,  ul, li, form {
+    margin: 0;
+    padding: 0;
+}
+/* Style the <h1> heading with curved edges */
+h1, h2, h3, p, {
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 10px; /* Add curved edges */
+    background-color: #007bff; /* Optional background color */
+    color: #fff; /* Text color */
+    padding: 10px; /* Add some padding for spacing */
+}
+/* Set a background color and text color for the entire page */
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+/* Style the flash messages */
+.flask-messages {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    padding: 15px;
+    text-align: center;
+    background-color: #f44336; /* Red background color */
+    color: #fff; /* White text color */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: top 0.3s ease-in-out;
+}
+
+/* Style the success flash messages */
+.flask-messages.success {
+    background-color: #4caf50; /* Green background color */
+}
+
+/* Style the warning flash messages */
+.flask-messages.warning {
+    background-color: #ff9800; /* Orange background color */
+}
+
+/* Style the info flash messages */
+.flask-messages.info {
+    background-color: #2196F3; /* Blue background color */
+}
+
+/* Style the close button for flash messages */
+.flask-messages .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Add some margin to content below the flash messages */
+body {
+    margin-top: 60px; /* Adjust the value as needed */
+}
+/* Style the navigation bar */
+nav {
+    background-color: #333;
+    color: #fff;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin: 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Style the content area */
+.content {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style form elements */
+form {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Reset some default browser styles */
+
+/* Apply a background color and font styles to the entire page */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the navigation bar */
+.navbar {
+    background-color: #333;
+    color: #fff;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+.navbar a:hover {
+    background-color: #555;
+}
+
+/* Center content in a container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Style form elements */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-control[type="checkbox"] {
+    width: auto; /* Custom width for checkboxes */
+}
+
+.form-control[type="radio"] {
+    width: auto; /* Custom width for radio buttons */
+}
+
+.form-control[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+/* Style buttons */
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-danger submit {
+    background-color: #dc3545;
+}
+
+/* Style tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Add responsive design for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .form-control {
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+    }
+}
+
+/* Additional custom styles go here */
+
+
+input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Add more CSS rules to style your content as needed */
+

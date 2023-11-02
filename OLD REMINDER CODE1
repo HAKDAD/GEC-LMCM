@@ -1,0 +1,62 @@
+@celery.task
+def send_notification(teacher_id, class_name):
+    with app.app_context():
+        print("Sending notification task started")
+        session = db.session
+        now = datetime.now()
+        try:
+            teacher = Teacher.query.filter_by(teacher_id=teacher_id).first()
+            if teacher:
+                class_data = Class.query.filter_by(teacher_id=teacher_id, class_name=class_name).first()
+                if class_data:
+                    class_time = class_data.class_time
+                    class_day = class_data.day_of_week
+
+                    # Check if a notification has already been sent for this class today
+                    class_notification = ClassNotification.query.filter_by(
+                        teacher_id=teacher_id,
+                        class_id=class_data.id,
+                        date=now.date(),
+                        notification_sent=True  # Add this condition to check if a notification was already sent
+                    ).first()
+
+                    if not class_notification:
+                        # Send the SMS
+                        message = f"Upcoming class: {class_data.class_name}\n"
+                        message += f"Teacher:{teacher.designation} {teacher.name}of Teacher Id {teacher.teacher_id}\n"
+                        
+                        message += f"Time: {class_data.class_time.strftime('%H:%M')}\n"
+                        message += f"Branch: {teacher.teacher_branch}"
+
+                        try:
+                            message = client.messages.create(
+                                body=message,
+                                from_=TWILIO_PHONE_NUMBER,
+                                to=teacher.phone_number
+                            )
+                            print("SMS sent successfully")
+
+                            # Mark the notification as sent after successful SMS
+                            class_notification = ClassNotification(
+                                teacher_id=teacher_id,
+                                class_id=class_data.id,
+                                date=now.date(),
+                                notification_sent=True,
+                                notification_datetime=datetime.now()
+                            )
+                            db.session.add(class_notification)
+                            db.session.commit()
+                            print("Notification added to the database")
+                        except TwilioRestException as e:
+                            print(f"Error sending SMS: {str(e)}")
+                    else:
+                        print(f"Notification already sent for {class_name} today")
+                else:
+                    print("Class not found")
+            else:
+                print("Teacher not found")
+        except Exception as ex:
+            print(f"Error fetching teacher: {str(ex)}")
+        print("Sending notification task completed")
+
+

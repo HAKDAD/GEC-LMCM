@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Notification System</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+    /* Style the navigation bar */
+.navbar {
+    background-color: #3498db; /* Background color for the navbar */
+    padding: 15px 0;
+    text-align: center;
+}
+
+/* Style the navigation items */
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-item {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #ffffff; /* Text color for navigation links */
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #ff5733; /* Text color on hover */
+}
+    h1, h2, h3, p{
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 10px; /* Add curved edges */
+    background-color: #007bff; /* Optional background color */
+    color: #fff; /* Text color */
+    padding: 10px; /* Add some padding for spacing */
+}
+</style>
+{% include 'navbar.html' %}
+
+</head>
+<body>
+
+   <h1>Welcome to your Teacher Notification System</h1>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <ul class="flash-messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endwith %}
+
+</body>
+</html>
+

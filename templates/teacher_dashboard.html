@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Dashboard</title>
+<style>
+    /* Apply styles to the body and content area */
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.content {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+
+/* Style tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Style buttons and links */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    margin: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    margin: 0 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+/* Form styles */
+form {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+select, input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+}
+
+/* Flash messages */
+.flash-messages {
+    list-style: none;
+    padding: 0;
+}
+
+.flash-messages li {
+    color: #007bff;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.flash-messages li.error {
+    color: #dc3545;
+}
+    h1, h2, h3, p{
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 10px; /* Add curved edges */
+    background-color: #007bff; /* Optional background color */
+    color: #fff; /* Text color */
+    padding: 10px; /* Add some padding for spacing */
+}
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+}
+a {
+    color: #9ea7b1;
+    background-color: #122b9b;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+/* Style the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #333;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+/* Style the table headers */
+th {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: 1px solid #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Style the table cells */
+td {
+    padding: 10px;
+    border: 1px solid #333;
+    text-align: center;
+}
+
+/* Style the odd rows with a light background color */
+tr:nth-child(odd) {
+    background-color: #f4f4f4;
+}
+
+/* Style the table hover effect */
+tr:hover {
+    background-color: #e3e3e3;
+}
+
+</style>
+</head>
+<body>
+    <div class="content">
+        <h1>Welcome,{{ teacher.designation }} {{ teacher.name }}</h1>
+        <h2>Your Weekly Schedule</h2>
+        
+        <table>
+            <tr>
+                <th>Day</th>
+                <th>Class ID</th>
+
+                <th>Class Name</th>
+                <th>Class Time</th>
+                <th>Branch</th>
+                <th>Year</th>
+
+            </tr>
+            {% for class in classes %}
+            <tr>
+                <td>{{ day_names[class.day_of_week]  }}</td>
+                <td>{{ class.id  }}</td>
+
+                <td>{{ class.class_name }}</td>
+                <td>{{ class.class_time.strftime('%H:%M') }}</td>
+                <td>{{ teacher.teacher_branch }}</td>
+                <td>{{ class.year}}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+        <!-- Add a section to display leave requests -->
+
+<h2>Leave Requests</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Class</th>
+      
+      <th>Leave Date</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for request in leave_requests %}
+    <tr>
+      <td>{{ request.class_id }}</td>
+      <td>{{ request.leave_date }}</td>
+      <td>{{ request.status }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+<!-- apply_for_leave.html -->
+<h2>Apply For Leave</h2>
+<form method="POST" action="/apply_for_leave">
+    <input type="text" name="teacher_id" value="{{ teacher_id }}" hidden>
+    <label for="class_id">Select Class:</label>
+    <select name="class_id" id="class_id">
+        <!-- Populate this dropdown with the teacher's classes -->
+        {% for class in classes %}
+            <option value="{{ class.id }}">{{ class.class_name }}</option>
+        {% endfor %}
+    </select>
+    <label for="leave_date">Leave Date:</label>
+    <input type="date" name="leave_date" required>
+    <button type="submit">Submit Leave Request</button>
+</form>
+
+<h2>Assigned Classes</h2>
+{% if assigned_classes %}
+<table class="assigned-classes-table">
+    <thead>
+        <tr>
+            <th>Class Name</th>
+            <th>Class Time</th>
+            <th>Year</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for class in assigned_classes %}
+        <tr>
+            <td>{{ class.class_name }}</td>
+            <td>{{ class.class_time }}</td>
+            <td>{{ class.year }}</td>
+            <td>{{ class.date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <ul class="flash-messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% endwith %}
+<div>
+        <h2>Password Reset</h2>
+        <form method="post" action="{{ url_for('reset_password') }}">
+            <label for="new_password">New Password:</label>
+            <input type="password" name="new_password" id="new_password" required>
+            <br>
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" name="confirm_password" id="confirm_password" required>
+            <br>
+            <BR></BR>
+            <button type="submit">Reset Password</button>
+        </form>
+        
+        <a href="{{ url_for('logout') }}">Logout</a>
+</div>
+    </div>
+</body>
+</html>

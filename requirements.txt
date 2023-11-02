@@ -1,0 +1,7 @@
+flask
+twilio
+schedule
+flask_sqlalchemy
+flask_migrate
+celery
+pymysql

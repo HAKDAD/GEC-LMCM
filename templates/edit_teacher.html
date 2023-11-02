@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        h1, h2, h3, p{
+        font-size: 28px;
+        color: #333;
+        text-align: center;
+        margin-top: 20px;
+        border-radius: 10px; /* Add curved edges */
+        background-color: #007bff; /* Optional background color */
+        color: #fff; /* Text color */
+        padding: 10px; /* Add some padding for spacing */
+    }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container mt-5">
+        <h2>Edit Teacher</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="teacher_id">Teacher ID:</label>
+                <input type="text" class="form-control" id="teacher_id" name="teacher_id" value="{{ teacher.teacher_id }}" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ teacher.name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Phone Number:</label>
+                <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ teacher.phone_number }}" required>
+            </div>
+            <div class="form-group">
+                <label for="teacher_branch">Branch:</label>
+                <select class="form-control" id="teacher_branch" name="teacher_branch">
+                    <option value="IT" {% if teacher.teacher_branch == 'IT' %} selected {% endif %}>IT</option>
+                    <option value="CSE" {% if teacher.teacher_branch == 'CSE' %} selected {% endif %}>CSE</option>
+                    <option value="ECE" {% if teacher.teacher_branch == 'ECE' %} selected {% endif %}>ECE</option>
+                    <!-- Add other branches here -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="designation">Designation:</label>
+                <select class="form-control" id="designation" name="designation">
+                    <option value="Professor" {% if teacher.designation == 'Professor' %} selected {% endif %}>Professor</option>
+                    <option value="Assistant Professor" {% if teacher.designation == 'Assistant Professor' %} selected {% endif %}>Assistant Professor</option>
+                    <option value="Associate Professor" {% if teacher.designation == 'Associate Professor' %} selected {% endif %}>Associate Professor</option>
+                    <!-- Add other designations here -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select class="form-control" id="gender" name="gender">
+                    <option value="Male" {% if teacher.gender == 'Male' %} selected {% endif %}>Male</option>
+                    <option value="Female" {% if teacher.gender == 'Female' %} selected {% endif %}>Female</option>
+                    <!-- Add other gender options here -->
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+    <div>
+        {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    </div>
+    
+</body>
+</html>
+

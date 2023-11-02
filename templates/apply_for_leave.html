@@ -1,0 +1,25 @@
+<style>
+    h1, h2, h3, p{
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 10px; /* Add curved edges */
+    background-color: #007bff; /* Optional background color */
+    color: #fff; /* Text color */
+    padding: 10px; /* Add some padding for spacing */
+}
+</style><h2>Apply For Leave</h2>
+<form method="POST" action="/apply_for_leave">
+    <input type="text" name="teacher_id" value="{{ teacher_id }}" hidden>
+    <label for="class_id">Select Class:</label>
+    <select name="class_id" id="class_id">
+        <!-- Populate this dropdown with the teacher's classes -->
+        {% for class in classes %}
+            <option value="{{ class.id }}">{{ class.class_name }}</option>
+        {% endfor %}
+    </select>
+    <label for="leave_date">Leave Date:</label>
+    <input type="date" name="leave_date" required>
+    <button type="submit">Submit Leave Request</button>
+</form>

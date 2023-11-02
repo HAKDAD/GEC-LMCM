@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<STYle>
+    /* Apply styles to the body and content area */
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    text-align: center; /* Center the content */
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+/* Style the header */
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Style the buttons */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    margin: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+</STYle></head>
+<body>
+    <div class="content">
+        <h1>WELCOME TO NOTIFICATION SYSTEM</h1>
+
+ </div>
+ <p></p>
+                <a class="btn btn-danger" href="admin_log" >admin login</a>
+              
+
+                <a class="btn btn-primary" href="teacher_log">Teacher login</a>
+            
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

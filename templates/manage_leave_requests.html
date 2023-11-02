@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Leave Requests</title>
+<style>
+    /* Style the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Background color for the body */
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the page title */
+h1 {
+    text-align: center;
+    color: #333; /* Text color for the page title */
+    margin: 20px 0;
+}
+
+/* Style the table */
+table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #fff; /* Background color for the table */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for the table */
+}
+
+/* Style the table header */
+thead {
+    background-color: #3498db; /* Background color for the table header */
+    color: #fff; /* Text color for the table header */
+}
+
+/* Style the table header cells */
+th {
+    padding: 10px;
+    text-align: left;
+}
+
+/* Style the table body */
+tbody {
+    color: #333; /* Text color for table body */
+}
+
+/* Style the table rows */
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Background color for even rows */
+}
+
+/* Style the table cells */
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+/* Style the action buttons */
+button {
+    background-color: #3498db; /* Background color for buttons */
+    color: #fff; /* Text color for buttons */
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff5733; /* Background color for buttons on hover */
+}
+
+</style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <h1>Manage Leave Requests</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Teacher Name</th>
+                <th>Teacher ID</th>
+
+                <th>Class ID</th>
+                <th>Leave Date</th>
+                <th>Status</th>
+                <th>Action</th>
+                <th>Assigned Teacher</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for leave_request in leave_requests %}
+            <tr>
+                <td>
+                    {% if leave_request.teacher_id %}
+                        {% for teacher in teachers %}
+                            {% if teacher.teacher_id == leave_request.teacher_id %}
+                                {{ teacher.name }}
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                
+                <td>{{ leave_request.teacher_id }}</td>
+
+                <td>{{ leave_request.class_id }}</td>
+                <td>{{ leave_request.leave_date }}</td>
+                <td>{{ leave_request.status }}</td>
+                {% if leave_request.status == 'Pending' %}
+                    <td>
+                        <form method="POST" action="{{ url_for('approve_leave', leave_request_id=leave_request.id) }}">
+                            <button type="submit">Approve</button>
+                        </form>
+                        <form method="POST" action="{{ url_for('reject_leave', leave_request_id=leave_request.id) }}">
+                            <button type="submit">Reject</button>
+                        </form>
+                    </td>
+                {% else %}
+                    <td>Leave Request Already {{ leave_request.status }}</td>
+                {% endif %}
+                <td>{{ leave_request.assigned_teacher_id }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div>
+        {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    </div>
+
+    
+    <a href="{{ url_for('admin_login') }}">Back to Admin Dashboard</a>
+
+</body>
+</html>
